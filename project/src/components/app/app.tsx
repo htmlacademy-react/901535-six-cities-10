@@ -1,3 +1,5 @@
+import { BrowserRouter, Route } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 
 type AppScreenProps = {
@@ -6,6 +8,12 @@ type AppScreenProps = {
 
 function App({offerCount}: AppScreenProps): JSX.Element {
   return (
+    <BrowserRouter>
+      <Route
+        path={AppRoute.Main}
+
+      />
+    </BrowserRouter>
     <MainScreen offerCount={offerCount}/>
   );
 }
