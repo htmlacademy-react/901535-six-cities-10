@@ -1,9 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import Error from '../../error';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
+import PropertyScreen from '../../pages/property-screen/property-screen';
+import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
   offerCount: number;
@@ -23,11 +25,17 @@ function App({offerCount}: AppScreenProps): JSX.Element {
         />
         <Route
           path={AppRoute.Favorites}
-          element={<FavoritesScreen/>}
+          element={
+            <PrivateRoute
+              authorizationStatus={AuthorizationStatus.NoAuth}
+            >
+              <FavoritesScreen/>
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.Room}
-          element={<Error/>}
+          element={<PropertyScreen/>}
         />
         <Route
           path={AppRoute.Error}
