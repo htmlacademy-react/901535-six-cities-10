@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 function PropertyScreen(): JSX.Element {
   return (
     <section className="property">
