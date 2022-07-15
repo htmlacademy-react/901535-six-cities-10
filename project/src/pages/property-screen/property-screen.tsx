@@ -1,5 +1,10 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
-function PropertyScreen(): JSX.Element {
+import { Offer } from '../../types/offer';
+
+type OfferScreenProps = {
+  offers: Offer[];
+};
+
+function PropertyScreen(props: OfferScreenProps): JSX.Element {
   return (
     <section className="property">
       <div className="property__gallery-container container">
