@@ -12,6 +12,15 @@ const enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
+const CITIES = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf'
+];
+
 const FavoriteBtnProp = {
   CARD: {
     className: 'place-card',
@@ -33,6 +42,7 @@ const enum TypeOfferCard {
 export {
   AppRoute,
   AuthorizationStatus,
+  CITIES,
   FavoriteBtnProp,
   TypeOfferCard,
 };
