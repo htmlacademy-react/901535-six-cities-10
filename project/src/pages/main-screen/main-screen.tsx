@@ -1,58 +1,27 @@
-import HeaderPage from '../../components/header-page/header-page';
+import HeaderPage from '../../components/header-page';
+import Locations from '../../components/locations';
 import OffersList from '../../components/offers-list/offers-list';
 import { Offer } from '../../types/offer';
 
 type MainScreenProps = {
-  offers: Offer[];
+  offers: Offer[],
+  authorizationStatus: string,
   selectedCity: string,
 };
 
-function MainScreen({offers, selectedCity}: MainScreenProps): JSX.Element {
+function MainScreen({offers, authorizationStatus, selectedCity}: MainScreenProps): JSX.Element {
 
   const selectedCityOffers = offers.filter((offer) => offer.city.name === selectedCity);
 
   return (
     <div className="page page--gray page--main">
 
-      <HeaderPage/>
+      <HeaderPage authorizationStatus={authorizationStatus} />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active" href='#todo'>
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#todo">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
+          <Locations selectedCity={selectedCity}/>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
@@ -75,7 +44,7 @@ function MainScreen({offers, selectedCity}: MainScreenProps): JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers} />
+                <OffersList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

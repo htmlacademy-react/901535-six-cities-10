@@ -17,9 +17,10 @@ function OffersList({offers}: OffersListProps): JSX.Element {
     setActiveOfferCard(null);
   };
 
+
   return (
     <>
-      {offers.map((offer) =>(
+      {offers.map((offer) => (
         <MainActiveCard
           offer={offer}
           key={offer.id}

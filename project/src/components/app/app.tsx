@@ -1,26 +1,34 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Offer, Comment } from '../../types/offer';
 import Error from '../../error';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
-import { Offer } from '../../types/offer';
 import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
-  offerCount: number;
   offers: Offer[];
+  comments: Comment[],
+  authorizationStatus: AuthorizationStatus,
+  city: string,
 };
 
-function App({offerCount, offers}: AppScreenProps): JSX.Element {
+function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX.Element {
 
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen offerCount={offerCount}/>}
+          element={
+            <MainScreen
+              offers={offers}
+              authorizationStatus={authorizationStatus}
+              selectedCity={city}
+            />
+          }
         />
         <Route
           path={AppRoute.Login}

@@ -1,6 +1,6 @@
-import PlaceCard from '../place-card';
-import { Offer } from '../../types/offer';
 import { TypeOfferCard } from '../../const';
+import { Offer } from '../../types/offer';
+import PlaceCard from '../place-card';
 
 type MainActiveCardProps = {
   offer: Offer,
@@ -14,7 +14,7 @@ function MainActiveCard({offer, onOfferSelected, onOfferNonSelected}: MainActive
       onMouseEnter={() => onOfferSelected(offer)}
       onMouseLeave={() => onOfferNonSelected()}
     >
-      <PlaceCard offer={offer} typeCard={TypeOfferCard.Main} />
+      <PlaceCard offer={offer} typeCard={TypeOfferCard.Main}/>
     </article>
   );
 }
