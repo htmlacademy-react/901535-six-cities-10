@@ -1,4 +1,4 @@
-import { ButtonFavorite } from '../types/offer';
+import { ButtonFavorite } from '../../types/offer';
 
 type FavoriteBtnProps = {
   isFavorite: boolean,

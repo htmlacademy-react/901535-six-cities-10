@@ -40,7 +40,9 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.NoAuth}
             >
-              <FavoritesScreen/>
+              <FavoritesScreen
+                offers={offers}
+              />
             </PrivateRoute>
           }
         />
@@ -49,6 +51,9 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
           element={
             <PropertyScreen
               offers={offers}
+              comments={comments}
+              neighbours={offers.slice(1,4)}
+              authorizationStatus={authorizationStatus}
             />
           }
         />

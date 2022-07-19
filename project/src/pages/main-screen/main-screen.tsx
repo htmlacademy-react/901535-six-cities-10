@@ -1,4 +1,4 @@
-import HeaderPage from '../../components/header-page';
+import HeaderPage from '../../components/header-page/header-page';
 import Locations from '../../components/locations';
 import OffersList from '../../components/offers-list/offers-list';
 import { Offer } from '../../types/offer';

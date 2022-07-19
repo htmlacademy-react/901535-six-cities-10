@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { FavoriteBtnProp, TypeOfferCard } from '../const';
 import { Offer } from '../types/offer';
 import { createRating } from '../utils/utils';
-import FavoriteBtn from './favorite-btn';
+import FavoriteBtn from './favorite-btn/favorite-btn';
 
 const OFFER_WAY = '/offer/';
 
