@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { Offer, Comment } from '../../types/offer';
 import Error from '../../error';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -8,16 +9,26 @@ import PropertyScreen from '../../pages/property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
-  offerCount: number;
+  offers: Offer[];
+  comments: Comment[],
+  authorizationStatus: AuthorizationStatus,
+  city: string,
 };
 
-function App({offerCount}: AppScreenProps): JSX.Element {
+function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX.Element {
+
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen offerCount={offerCount}/>}
+          element={
+            <MainScreen
+              offers={offers}
+              authorizationStatus={authorizationStatus}
+              selectedCity={city}
+            />
+          }
         />
         <Route
           path={AppRoute.Login}
@@ -29,13 +40,22 @@ function App({offerCount}: AppScreenProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={AuthorizationStatus.NoAuth}
             >
-              <FavoritesScreen/>
+              <FavoritesScreen
+                offers={offers}
+              />
             </PrivateRoute>
           }
         />
         <Route
-          path={AppRoute.Room}
-          element={<PropertyScreen/>}
+          path={AppRoute.Property}
+          element={
+            <PropertyScreen
+              offers={offers}
+              comments={comments}
+              neighbours={offers.slice(1,4)}
+              authorizationStatus={authorizationStatus}
+            />
+          }
         />
         <Route
           path={AppRoute.Error}
