@@ -57,10 +57,9 @@ type OfferScreenProps = {
 }
 
 function PropertyScreen({offers, comments, neighbours, authorizationStatus}: OfferScreenProps): JSX.Element {
-  const params: {id: string} = useParams();
-  const id = +params.id;
+  const {id} = useParams();
 
-  const exactOffer = offers.find((offer) => offer.id === id);
+  const exactOffer = offers.find((offer) => String(offer.id) === id);
 
   if (!exactOffer) {
     return <Error/>;

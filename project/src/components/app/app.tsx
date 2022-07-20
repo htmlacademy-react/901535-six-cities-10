@@ -47,7 +47,7 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
           }
         />
         <Route
-          path={AppRoute.Room}
+          path={AppRoute.Property}
           element={
             <PropertyScreen
               offers={offers}
