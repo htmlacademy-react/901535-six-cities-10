@@ -11,12 +11,10 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <App
-      offers = {offers}
-      comments = {COMMENTS}
-      authorizationStatus = {AuthorizationStatus.Auth}
-      city = {CITIES[3]}
-    />
-  </React.StrictMode>,
+  <App
+    offers = {offers}
+    comments = {COMMENTS}
+    authorizationStatus = {AuthorizationStatus.Auth}
+    city = {CITIES[3]}
+  />
 );

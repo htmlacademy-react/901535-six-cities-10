@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import HeaderPage from '../../components/header-page/header-page';
 import Locations from '../../components/locations';
+import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
+import { citiesCoordinates } from '../../const';
 import { Offer } from '../../types/offer';
 
 type MainScreenProps = {
@@ -9,9 +12,16 @@ type MainScreenProps = {
   selectedCity: string,
 };
 
+const center = citiesCoordinates.amsterdam;
+
 function MainScreen({offers, authorizationStatus, selectedCity}: MainScreenProps): JSX.Element {
 
   const selectedCityOffers = offers.filter((offer) => offer.city.name === selectedCity);
+  const [activeOfferCard, setActiveOfferCard] = useState<Offer | null>(null);
+
+  const handleActiveOfferSelect = (offer: Offer | null): void => {
+    setActiveOfferCard(offer);
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -44,11 +54,13 @@ function MainScreen({offers, authorizationStatus, selectedCity}: MainScreenProps
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <OffersList offers={offers}/>
+                <OffersList offers={offers} handleActiveOfferSelect={handleActiveOfferSelect} />
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={center} offers={selectedCityOffers} activeOfferCard={activeOfferCard} />
+              </section>
             </div>
           </div>
         </div>
