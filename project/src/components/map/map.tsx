@@ -19,8 +19,8 @@ const getOfferIcon = (iconUrl: string) => new Icon(
   }
 );
 
-const activeIcon = getOfferIcon('../../../public/img/pin-active.svg');
-const defaultIcon = getOfferIcon('../../../public/img/pin.svg');
+const activeIcon = getOfferIcon('./img/pin-active.svg');
+const defaultIcon = getOfferIcon('./img/pin.svg');
 
 function Map(props: MapProps): JSX.Element {
   const {city, offers, activeOfferCard} = props;
