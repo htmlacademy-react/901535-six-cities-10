@@ -4,9 +4,9 @@ import { Offer, Comment } from '../../types/offer';
 import Error from '../../error';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
-import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
+import MainWrapper from '../main-wrapper/main-wrapper';
 
 type AppScreenProps = {
   offers: Offer[];
@@ -23,10 +23,9 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
         <Route
           path={AppRoute.Main}
           element={
-            <MainScreen
+            <MainWrapper
               offers={offers}
               authorizationStatus={authorizationStatus}
-              selectedCity={city}
             />
           }
         />
