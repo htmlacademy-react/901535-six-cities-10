@@ -1,12 +1,17 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentAddForm from '../../components/comment-add-form/comment-add-form';
 import FavoriteBtn from '../../components/favorite-btn/favorite-btn';
 import HeaderPage from '../../components/header-page/header-page';
+import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
-import { AuthorizationStatus, FavoriteBtnProp } from '../../const';
+import ReviewsList from '../../components/review-list/review-list';
+import { AuthorizationStatus, citiesCoordinates, FavoriteBtnProp } from '../../const';
 import Error from '../../error';
 import { Comment, Offer } from '../../types/offer';
 import { createRating } from '../../utils/utils';
+
+const center = citiesCoordinates.amsterdam;
 
 function PropertyPicture({src}: {src: string}) {
   return (
@@ -20,35 +25,6 @@ function FeatureInside({featureName}: {featureName: string}) {
   return <li className="property__inside-item">{featureName}</li>;
 }
 
-function Review({commentInfo:{comment, date, rating, user}}: {commentInfo: Comment}) {
-  return (
-    <li className="reviews__item">
-      <div className="reviews__user user">
-        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
-        </div>
-        <span className="reviews__user-name">
-          {user.name}
-        </span>
-      </div>
-      <div className="reviews__info">
-        <div className="reviews__rating rating">
-          <div className="reviews__stars rating__stars">
-            <span style={{width: createRating(rating)}}></span>
-            <span className="visually-hidden">Rating</span>
-          </div>
-        </div>
-        <p className="reviews__text">
-          {comment}
-        </p>
-        <time className="reviews__time" dateTime={(new Date(date).toDateString())}>
-          {(new Date(date).toLocaleString('en-US', {month: 'long', year: 'numeric'}))}
-        </time>
-      </div>
-    </li>
-  );
-}
-
 type OfferScreenProps = {
   offers: Offer[],
   comments: Comment[],
@@ -57,28 +33,16 @@ type OfferScreenProps = {
 }
 
 function PropertyScreen({offers, comments, neighbours, authorizationStatus}: OfferScreenProps): JSX.Element {
-  const {id} = useParams();
+  const [, setActiveOfferCard] = useState<Offer | null>(null);
 
+  const {id} = useParams();
   const exactOffer = offers.find((offer) => String(offer.id) === id);
 
   if (!exactOffer) {
     return <Error/>;
   }
 
-  const {
-    price,
-    title,
-    rating,
-    type,
-    host,
-    description,
-    maxAdults,
-    bedrooms,
-    goods,
-    images,
-    isFavorite,
-    isPremium
-  } = exactOffer;
+  const {price, title, rating, type, host, description, maxAdults, bedrooms, goods, images, isFavorite, isPremium} = exactOffer;
 
   return (
     <div className="page">
@@ -150,21 +114,21 @@ function PropertyScreen({offers, comments, neighbours, authorizationStatus}: Off
                 </div>
               </div>
               <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  {comments.map((comment) => <Review commentInfo={comment} key={comment.id} />)}
-                </ul>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                <ReviewsList comments={comments}/>
                 {authorizationStatus === AuthorizationStatus.Auth ? <CommentAddForm /> : null}
               </section>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <section className="property__map map">
+            <Map city={center} offers={neighbours} activeOfferCard={null}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OffersList offers={neighbours} />
+              <OffersList offers={neighbours} handleActiveOfferSelect={setActiveOfferCard} />
             </div>
           </section>
         </div>

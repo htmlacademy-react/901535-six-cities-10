@@ -1,4 +1,3 @@
-import { TypeOfferCard } from '../../const';
 import { Offer } from '../../types/offer';
 import PlaceCard from '../place-card';
 
@@ -6,6 +5,11 @@ type MainActiveCardProps = {
   offer: Offer,
   onOfferSelected?: (offer: Offer | null) => void,
 }
+
+const cardInfoStyle = '';
+const cardWrapperStyle = 'cities__image-wrapper';
+const [cardImageWidth, cardImageHeight] = ['260', '200'];
+const styleProps = {cardInfoStyle, cardWrapperStyle, cardImageWidth, cardImageHeight};
 
 function MainActiveCard({offer, onOfferSelected}: MainActiveCardProps): JSX.Element {
 
@@ -25,7 +29,7 @@ function MainActiveCard({offer, onOfferSelected}: MainActiveCardProps): JSX.Elem
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <PlaceCard offer={offer} typeCard={TypeOfferCard.Main}/>
+      <PlaceCard offer={offer} {...styleProps}/>
     </article>
   );
 }

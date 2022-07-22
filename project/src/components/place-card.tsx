@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FavoriteBtnProp, TypeOfferCard } from '../const';
+import { FavoriteBtnProp } from '../const';
 import { Offer } from '../types/offer';
 import { createRating } from '../utils/utils';
 import FavoriteBtn from './favorite-btn/favorite-btn';
@@ -8,24 +8,15 @@ const OFFER_WAY = '/offer/';
 
 type OfferCardProps = {
   offer: Offer,
-  typeCard: string,
+  cardInfoStyle: string,
+  cardWrapperStyle: string,
+  cardImageWidth: string,
+  cardImageHeight: string,
 };
 
-function PlaceCard({offer, typeCard}: OfferCardProps): JSX.Element {
-  const {
-    price,
-    title,
-    previewImage,
-    rating,
-    type,
-    id,
-    isFavorite,
-    isPremium
-  } = offer;
-
-  const wrapperClass = typeCard === TypeOfferCard.Main ? 'cities__image-wrapper' : 'favorites__image-wrapper';
-  const infoClass = typeCard === TypeOfferCard.Main ? '' : 'favorites__card-info';
-  const [width, height] = typeCard === TypeOfferCard.Main ? ['260', '200'] : ['150', '110'];
+function PlaceCard({offer, ...styleProps}: OfferCardProps): JSX.Element {
+  const {price, title, previewImage, rating, type, id, isFavorite, isPremium} = offer;
+  const {cardInfoStyle, cardWrapperStyle, cardImageWidth, cardImageHeight} = styleProps;
 
   return (
     <article className="cities__card place-card">
@@ -34,12 +25,12 @@ function PlaceCard({offer, typeCard}: OfferCardProps): JSX.Element {
           <span>Premium</span>
         </div> : ''}
 
-      <div className= {`${wrapperClass} place-card__image-wrapper`}>
+      <div className= {`${cardWrapperStyle} place-card__image-wrapper`}>
         <Link to={`${OFFER_WAY}${id}`}>
-          <img className="place-card__image" src={previewImage} width={width} height={height} alt="Place" />
+          <img className="place-card__image" src={previewImage} width={cardImageWidth} height={cardImageHeight} alt="Place" />
         </Link>
       </div>
-      <div className={`${infoClass} place-card__info`}>
+      <div className={`${cardInfoStyle} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
