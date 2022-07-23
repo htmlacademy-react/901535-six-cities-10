@@ -1,4 +1,4 @@
-import { PointInMap } from "./types/offer";
+import { PointInMap } from './types/offer';
 
 const enum AppRoute {
   Main = '/',
@@ -50,7 +50,7 @@ const STARS = [
 ];
 
 const citiesCoordinates: {[property: string]: PointInMap} = {
-  amsterdam: {lat: 52.3809553943508, lng: 4.939309666406198},
+  amsterdam: {lat: 52.3809553943508, lng: 4.9},   // 4.939309666406198
   paris: {lat: 48.8534, lng: 2.3488},
   brussels: {lat: 50.8504, lng: 4.34878},
   hamburg: {lat: 53.5753, lng: 10.0153},

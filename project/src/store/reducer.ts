@@ -16,17 +16,17 @@ export type State = {
 const initalState = {
   city: initialCity,
   offers: getOffersByCityName(offers, initialCity),
-}
+};
 
 const reducer = (state: State = initalState, action: Action): State => {
   switch (action.type) {
     case ActionType.ChangeCity:
-      return {...state, city: action.plyload}
+      return {...state, city: action.plyload};
     case ActionType.GetOffersList:
-      return {...state, offers: getOffersByCityName(offers, action.plyload)}
+      return {...state, offers: getOffersByCityName(offers, action.plyload)};
     default:
       return state;
   }
-}
+};
 
-export {reducer}
+export {reducer};

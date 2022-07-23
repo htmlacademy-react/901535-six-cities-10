@@ -6,11 +6,11 @@ export enum ActionType {
 export const changeCity = (city: string) => ({
   type: ActionType.ChangeCity,
   plyload: city,
-} as const)
+} as const);
 
 export const getOffersList = (city: string) => ({
   type: ActionType.GetOffersList,
   plyload: city,
-} as const)
+} as const);
 
 export type Action = ReturnType<typeof changeCity> | ReturnType<typeof getOffersList>

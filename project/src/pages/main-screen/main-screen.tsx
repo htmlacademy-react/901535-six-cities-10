@@ -22,7 +22,7 @@ function MainScreen({offers, authorizationStatus, selectedCity}: MainScreenProps
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations selectedCity={selectedCity}/>
+          <Locations />
         </div>
         <div className="cities">
           <div className="cities__places-container container">

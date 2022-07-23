@@ -24,7 +24,7 @@ function MainWrapper({offers, authorizationStatus, selectedCity}: MainScreenProp
     <MainEmptyScreen
       authorizationStatus={authorizationStatus}
       selectedCity={selectedCity}
-    />
+    />;
 }
 
 export default connect(mapStateToProps)(MainWrapper);
