@@ -1,7 +1,8 @@
-import { Icon, Marker } from 'leaflet';
+import { Icon, LayerGroup, Marker } from 'leaflet';
 import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/use-map';
 import { Offer, PointInMap } from '../../types/offer';
+import { IconMapColour } from '../../const';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -19,14 +20,15 @@ const getOfferIcon = (iconUrl: string) => new Icon(
   }
 );
 
-const activeIcon = getOfferIcon('./img/pin-active.svg');
-const defaultIcon = getOfferIcon('./img/pin.svg');
+const activeIcon = getOfferIcon(IconMapColour.Active);
+const defaultIcon = getOfferIcon(IconMapColour.Default);
 
 function Map(props: MapProps): JSX.Element {
   const {city, offers, activeOfferCard} = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const markerGroup = new LayerGroup();
 
   useEffect(() => {
     if (map) {
@@ -36,8 +38,17 @@ function Map(props: MapProps): JSX.Element {
         marker.setIcon(activeOfferCard !== null && activeOfferCard.id === offer.id ? activeIcon : defaultIcon);
         marker.addTo(map);
       });
+      markerGroup.addTo(map);
     }
-  }, [map, offers, activeOfferCard]);
+
+    return () => {
+      markerGroup.remove();
+    };
+  });
+
+  useEffect(() => {
+    map?.setView(city);
+  }, [city, map]);
 
   return <div style={{height: '100%'}} ref={mapRef}></div>;
 }

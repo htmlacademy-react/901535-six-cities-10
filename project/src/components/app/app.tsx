@@ -51,7 +51,6 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
             <PropertyScreen
               offers={offers}
               comments={comments}
-              neighbours={offers.slice(1,4)}
               authorizationStatus={authorizationStatus}
             />
           }

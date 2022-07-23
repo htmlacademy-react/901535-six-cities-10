@@ -11,8 +11,6 @@ import Error from '../../error';
 import { Comment, Offer } from '../../types/offer';
 import { createRating } from '../../utils/utils';
 
-const center = citiesCoordinates.amsterdam;
-
 function PropertyPicture({src}: {src: string}) {
   return (
     <div className="property__image-wrapper">
@@ -28,11 +26,10 @@ function FeatureInside({featureName}: {featureName: string}) {
 type OfferScreenProps = {
   offers: Offer[],
   comments: Comment[],
-  neighbours: Offer[],
   authorizationStatus: string,
 }
 
-function PropertyScreen({offers, comments, neighbours, authorizationStatus}: OfferScreenProps): JSX.Element {
+function PropertyScreen({offers, comments, authorizationStatus}: OfferScreenProps): JSX.Element {
   const [, setActiveOfferCard] = useState<Offer | null>(null);
 
   const {id} = useParams();
@@ -43,10 +40,13 @@ function PropertyScreen({offers, comments, neighbours, authorizationStatus}: Off
   }
 
   const {price, title, rating, type, host, description, maxAdults, bedrooms, goods, images, isFavorite, isPremium} = exactOffer;
+  const center = citiesCoordinates[exactOffer.city.name.toLowerCase()];
+  const neighbours = offers.filter((offer) => offer.city.name === exactOffer.city.name);
 
   return (
     <div className="page">
       <HeaderPage authorizationStatus={authorizationStatus} />
+
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
