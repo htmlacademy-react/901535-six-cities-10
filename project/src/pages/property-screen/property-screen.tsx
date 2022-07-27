@@ -6,7 +6,7 @@ import HeaderPage from '../../components/header-page/header-page';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import ReviewsList from '../../components/review-list/review-list';
-import { AuthorizationStatus, citiesCoordinates, FavoriteBtnProp } from '../../const';
+import { citiesCoordinates, FavoriteBtnProp } from '../../const';
 import Error from '../../error';
 import { Comment, Offer } from '../../types/offer';
 import { createRating } from '../../utils/utils';
@@ -26,10 +26,9 @@ function FeatureInside({featureName}: {featureName: string}) {
 type OfferScreenProps = {
   offers: Offer[],
   comments: Comment[],
-  authorizationStatus: string,
 }
 
-function PropertyScreen({offers, comments, authorizationStatus}: OfferScreenProps): JSX.Element {
+function PropertyScreen({offers, comments}: OfferScreenProps): JSX.Element {
   const [, setActiveOfferCard] = useState<Offer | null>(null);
 
   const {id} = useParams();
@@ -45,7 +44,7 @@ function PropertyScreen({offers, comments, authorizationStatus}: OfferScreenProp
 
   return (
     <div className="page">
-      <HeaderPage authorizationStatus={authorizationStatus} />
+      <HeaderPage />
 
       <main className="page__main page__main--property">
         <section className="property">
@@ -116,7 +115,7 @@ function PropertyScreen({offers, comments, authorizationStatus}: OfferScreenProp
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                 <ReviewsList comments={comments}/>
-                {authorizationStatus === AuthorizationStatus.Auth ? <CommentAddForm /> : null}
+                <CommentAddForm />
               </section>
             </div>
           </div>

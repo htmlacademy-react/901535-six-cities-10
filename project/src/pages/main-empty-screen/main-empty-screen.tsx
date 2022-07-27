@@ -1,10 +1,10 @@
 import HeaderPage from '../../components/header-page/header-page';
 import Locations from '../../components/locations';
 
-function MainEmptyScreen({authorizationStatus, selectedCity}: {authorizationStatus: string, selectedCity: string}): JSX.Element {
+function MainEmptyScreen({selectedCity}: {selectedCity: string}): JSX.Element {
   return (
     <div className="page page--gray page--main">
-      <HeaderPage authorizationStatus={authorizationStatus} />
+      <HeaderPage />
       <main className="page__main page__main--index page__main--index-empty">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">

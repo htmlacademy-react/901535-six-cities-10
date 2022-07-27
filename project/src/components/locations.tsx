@@ -1,17 +1,8 @@
-import { bindActionCreators, Dispatch } from '@reduxjs/toolkit';
-import { connect, ConnectedProps } from 'react-redux';
-import { State } from '../store/reducer';
 import { CITIES } from '../const';
-import { changeCity, getOffersList } from '../store/action';
 import { MouseEvent } from 'react';
+import { connector, PropsFromRedux } from '../hooks/props-from-redux';
 
 const ACTIVE = 'tabs__item tabs__item--active';
-
-const mapStateToProps = ({city}: State) => ({selectedCity: city});
-const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({onClickCity: changeCity, getOffersList}, dispatch);
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
 
 function Location({city, selectedCity, onClickCity}: {city: string} & PropsFromRedux): JSX.Element {
   const onClick = (evt: MouseEvent) => {

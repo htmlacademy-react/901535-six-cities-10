@@ -1,7 +1,5 @@
 import { CITIES } from '../const';
-import { offers } from '../mocks/offers';
 import { Offer } from '../types/offer';
-import { getOffersByCityName } from '../utils/utils';
 import { Action, ActionType } from './action';
 
 const START_CITY_INDEX = 0;
@@ -9,21 +7,21 @@ const START_CITY_INDEX = 0;
 const initialCity = CITIES[START_CITY_INDEX];
 
 export type State = {
-  city: string,
-  offers: Offer[],
+  currentCity: string,
+  cardList: Offer[],
 }
 
-const initalState = {
-  city: initialCity,
-  offers: getOffersByCityName(offers, initialCity),
+const initialState = {
+  currentCity: initialCity,
+  cardList: [],
 };
 
-const reducer = (state: State = initalState, action: Action): State => {
+const reducer = (state: State = initialState, action: Action): State => {
   switch (action.type) {
     case ActionType.ChangeCity:
-      return {...state, city: action.plyload};
-    case ActionType.GetOffersList:
-      return {...state, offers: getOffersByCityName(offers, action.plyload)};
+      return {...state, currentCity: action.plyload};
+    case ActionType.OffersList:
+      return {...state, cardList: action.plyload};
     default:
       return state;
   }

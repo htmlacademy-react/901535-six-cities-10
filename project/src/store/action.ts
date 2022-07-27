@@ -1,6 +1,8 @@
+import { Offer } from '../types/offer';
+
 export enum ActionType {
-  ChangeCity = 'cityChangeCity',
-  GetOffersList = 'city/GetOffersList',
+  ChangeCity = 'city/ChangeCity',
+  OffersList = 'city/OffersList',
 }
 
 export const changeCity = (city: string) => ({
@@ -8,9 +10,11 @@ export const changeCity = (city: string) => ({
   plyload: city,
 } as const);
 
-export const getOffersList = (city: string) => ({
-  type: ActionType.GetOffersList,
-  plyload: city,
+export const OffersList = (cards: Offer[]) => ({
+  type: ActionType.OffersList,
+  plyload: cards,
 } as const);
 
-export type Action = ReturnType<typeof changeCity> | ReturnType<typeof getOffersList>
+export type Action =
+| ReturnType<typeof changeCity>
+| ReturnType<typeof OffersList>

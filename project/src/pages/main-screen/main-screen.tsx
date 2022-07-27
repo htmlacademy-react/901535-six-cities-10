@@ -7,7 +7,7 @@ import OffersList from '../../components/offers-list/offers-list';
 import { citiesCoordinates } from '../../const';
 import { Offer } from '../../types/offer';
 
-function MainScreen({offers, authorizationStatus, selectedCity}: MainScreenProps): JSX.Element {
+function MainScreen({offers, selectedCity}: MainScreenProps): JSX.Element {
 
   const center = citiesCoordinates[selectedCity.toLowerCase()];
   const [activeOfferCard, setActiveOfferCard] = useState<Offer | null>(null);
@@ -17,7 +17,7 @@ function MainScreen({offers, authorizationStatus, selectedCity}: MainScreenProps
 
   return (
     <div className="page page--gray page--main">
-      <HeaderPage authorizationStatus={authorizationStatus} />
+      <HeaderPage />
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>

@@ -1,6 +1,8 @@
+import { connect, ConnectedProps } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offer, Comment } from '../../types/offer';
+import { State } from '../../store/reducer';
 import Error from '../../error';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -11,11 +13,15 @@ import MainWrapper from '../main-wrapper/main-wrapper';
 type AppScreenProps = {
   offers: Offer[];
   comments: Comment[],
-  authorizationStatus: AuthorizationStatus,
-  city: string,
 };
 
-function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX.Element {
+const mapStateToProps = ({currentCity}: State) => ({currentCity});
+const connector = connect(mapStateToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+function App({offers, comments, currentCity}: AppScreenProps & PropsFromRedux): JSX.Element {
+  const filteredCards = offers.filter((card) => card.city.name === currentCity);
 
   return (
     <BrowserRouter>
@@ -24,8 +30,7 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
           path={AppRoute.Main}
           element={
             <MainWrapper
-              offers={offers}
-              authorizationStatus={authorizationStatus}
+              offers={filteredCards}
             />
           }
         />
@@ -51,7 +56,6 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
             <PropertyScreen
               offers={offers}
               comments={comments}
-              authorizationStatus={authorizationStatus}
             />
           }
         />
@@ -64,4 +68,4 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
   );
 }
 
-export default App;
+export default connector(App);
