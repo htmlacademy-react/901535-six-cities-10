@@ -1,16 +1,24 @@
 import { useState } from 'react';
 import HeaderPage from '../../components/header-page/header-page';
-import Locations from '../../components/locations';
-import { MainScreenProps } from '../../components/main-wrapper/main-wrapper';
+import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import { citiesCoordinates } from '../../const';
 import { Offer } from '../../types/offer';
 
-function MainScreen({offers, selectedCity}: MainScreenProps): JSX.Element {
+type MainScreenProps = {
+  offers: Offer[],
+  authorizationStatus: string,
+  selectedCity: string,
+};
 
-  const center = citiesCoordinates[selectedCity.toLowerCase()];
+const center = citiesCoordinates.amsterdam;
+
+function MainScreen({offers, authorizationStatus, selectedCity}: MainScreenProps): JSX.Element {
+
+  const selectedCityOffers = offers.filter((offer) => offer.city.name === selectedCity);
   const [activeOfferCard, setActiveOfferCard] = useState<Offer | null>(null);
+
   const handleActiveOfferSelect = (offer: Offer | null): void => {
     setActiveOfferCard(offer);
   };
@@ -18,7 +26,6 @@ function MainScreen({offers, selectedCity}: MainScreenProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <HeaderPage />
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
@@ -28,9 +35,7 @@ function MainScreen({offers, selectedCity}: MainScreenProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">
-                {offers.length} {offers.length > 1 ? 'places' : 'place'}  to stay in {selectedCity}
-              </b>
+              <b className="places__found">{selectedCityOffers.length} places to stay in {selectedCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -52,7 +57,7 @@ function MainScreen({offers, selectedCity}: MainScreenProps): JSX.Element {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map city={center} offers={offers} activeOfferCard={activeOfferCard} />
+                <Map city={center} offers={selectedCityOffers} activeOfferCard={activeOfferCard} />
               </section>
             </div>
           </div>

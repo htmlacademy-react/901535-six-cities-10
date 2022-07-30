@@ -2,7 +2,7 @@ import { Offer } from '../types/offer';
 
 export enum ActionType {
   ChangeCity = 'city/ChangeCity',
-  OffersList = 'city/OffersList',
+  OffersList = 'city/SetOffersList',
 }
 
 export const changeCity = (city: string) => ({

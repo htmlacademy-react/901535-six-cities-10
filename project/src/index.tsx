@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './components/app/app';
+import { AuthorizationStatus } from './const';
 import { COMMENTS } from './mocks/comments';
 import { offers } from './mocks/offers';
 import { store } from './store';
@@ -14,6 +15,7 @@ root.render(
     <App
       offers={offers}
       comments={COMMENTS}
+      authorizationStatus={AuthorizationStatus.Auth}
     />
   </Provider>
 );

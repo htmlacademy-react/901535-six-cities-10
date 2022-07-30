@@ -1,27 +1,20 @@
-import { connect, ConnectedProps } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offer, Comment } from '../../types/offer';
-import { State } from '../../store/reducer';
 import Error from '../../error';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
+import MainScreen from '../../pages/main-screen/main-screen';
 import PropertyScreen from '../../pages/property-screen/property-screen';
 import PrivateRoute from '../private-route/private-route';
-import MainWrapper from '../main-wrapper/main-wrapper';
 
 type AppScreenProps = {
   offers: Offer[];
   comments: Comment[],
+  authorizationStatus: AuthorizationStatus,
 };
 
-const mapStateToProps = ({currentCity}: State) => ({currentCity});
-const connector = connect(mapStateToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
-
-function App({offers, comments, currentCity}: AppScreenProps & PropsFromRedux): JSX.Element {
-  const filteredCards = offers.filter((card) => card.city.name === currentCity);
+function App({offers, comments, authorizationStatus}: AppScreenProps): JSX.Element {
 
   return (
     <BrowserRouter>
@@ -29,8 +22,10 @@ function App({offers, comments, currentCity}: AppScreenProps & PropsFromRedux): 
         <Route
           path={AppRoute.Main}
           element={
-            <MainWrapper
-              offers={filteredCards}
+            <MainScreen
+              offers={offers}
+              authorizationStatus={authorizationStatus}
+              selectedCity={''}
             />
           }
         />
@@ -56,6 +51,8 @@ function App({offers, comments, currentCity}: AppScreenProps & PropsFromRedux): 
             <PropertyScreen
               offers={offers}
               comments={comments}
+              neighbours={offers.slice(1,4)}
+              authorizationStatus={authorizationStatus}
             />
           }
         />
@@ -68,4 +65,4 @@ function App({offers, comments, currentCity}: AppScreenProps & PropsFromRedux): 
   );
 }
 
-export default connector(App);
+export default App;

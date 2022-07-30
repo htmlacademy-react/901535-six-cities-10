@@ -1,5 +1,5 @@
 import HeaderPage from '../../components/header-page/header-page';
-import Locations from '../../components/locations';
+import Locations from '../../components/locations/locations';
 
 function MainEmptyScreen({selectedCity}: {selectedCity: string}): JSX.Element {
   return (

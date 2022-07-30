@@ -6,10 +6,12 @@ import HeaderPage from '../../components/header-page/header-page';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import ReviewsList from '../../components/review-list/review-list';
-import { citiesCoordinates, FavoriteBtnProp } from '../../const';
+import { AuthorizationStatus, citiesCoordinates, FavoriteBtnProp } from '../../const';
 import Error from '../../error';
 import { Comment, Offer } from '../../types/offer';
 import { createRating } from '../../utils/utils';
+
+const center = citiesCoordinates.amsterdam;
 
 function PropertyPicture({src}: {src: string}) {
   return (
@@ -26,9 +28,11 @@ function FeatureInside({featureName}: {featureName: string}) {
 type OfferScreenProps = {
   offers: Offer[],
   comments: Comment[],
+  neighbours: Offer[],
+  authorizationStatus: string,
 }
 
-function PropertyScreen({offers, comments}: OfferScreenProps): JSX.Element {
+function PropertyScreen({offers, comments, neighbours, authorizationStatus}: OfferScreenProps): JSX.Element {
   const [, setActiveOfferCard] = useState<Offer | null>(null);
 
   const {id} = useParams();
@@ -39,13 +43,10 @@ function PropertyScreen({offers, comments}: OfferScreenProps): JSX.Element {
   }
 
   const {price, title, rating, type, host, description, maxAdults, bedrooms, goods, images, isFavorite, isPremium} = exactOffer;
-  const center = citiesCoordinates[exactOffer.city.name.toLowerCase()];
-  const neighbours = offers.filter((offer) => offer.city.name === exactOffer.city.name);
 
   return (
     <div className="page">
       <HeaderPage />
-
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -115,7 +116,7 @@ function PropertyScreen({offers, comments}: OfferScreenProps): JSX.Element {
               <section className="property__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                 <ReviewsList comments={comments}/>
-                <CommentAddForm />
+                {authorizationStatus === AuthorizationStatus.Auth ? <CommentAddForm /> : null}
               </section>
             </div>
           </div>
