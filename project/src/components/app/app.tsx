@@ -12,10 +12,9 @@ type AppScreenProps = {
   offers: Offer[];
   comments: Comment[],
   authorizationStatus: AuthorizationStatus,
-  city: string,
 };
 
-function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX.Element {
+function App({offers, comments, authorizationStatus}: AppScreenProps): JSX.Element {
 
   return (
     <BrowserRouter>
@@ -26,7 +25,7 @@ function App({offers, comments, authorizationStatus, city}: AppScreenProps): JSX
             <MainScreen
               offers={offers}
               authorizationStatus={authorizationStatus}
-              selectedCity={city}
+              selectedCity={''}
             />
           }
         />

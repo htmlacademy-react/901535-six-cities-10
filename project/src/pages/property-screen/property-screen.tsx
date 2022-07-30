@@ -46,7 +46,7 @@ function PropertyScreen({offers, comments, neighbours, authorizationStatus}: Off
 
   return (
     <div className="page">
-      <HeaderPage authorizationStatus={authorizationStatus} />
+      <HeaderPage />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">

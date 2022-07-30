@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import HeaderPage from '../../components/header-page/header-page';
-import Locations from '../../components/locations';
+import Locations from '../../components/locations/locations';
 import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import { citiesCoordinates } from '../../const';
@@ -25,13 +25,11 @@ function MainScreen({offers, authorizationStatus, selectedCity}: MainScreenProps
 
   return (
     <div className="page page--gray page--main">
-
-      <HeaderPage authorizationStatus={authorizationStatus} />
-
+      <HeaderPage />
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Locations selectedCity={selectedCity}/>
+          <Locations />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
